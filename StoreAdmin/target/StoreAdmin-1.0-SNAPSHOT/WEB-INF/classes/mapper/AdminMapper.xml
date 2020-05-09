@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.store.mapper.AdminMapper">
+
+	<!-- Admin selectByLoginName(String loginName); -->
+	<select id="selectByLoginName" resultType="com.example.store.bean.Admin">
+		SELECT
+			id,
+			login_name loginName,
+			login_pwd loginPwd,
+			real_name realName,
+			mobile,
+			email,
+			image,
+			last_login_ip lastLoginIp,
+			last_login_time lastLoginTime
+		FROM
+			t_admin
+		WHERE
+			login_name = #{loginName}
+	</select>
+
+	<!-- Admin selectByEmail(String email); -->
+	<select id="selectByEmail" resultType="com.example.store.bean.Admin">
+		SELECT
+			id,
+			login_name loginName,
+			login_pwd loginPwd,
+			real_name realName,
+			mobile,
+			email,
+			image,
+			last_login_ip lastLoginIp,
+			last_login_time lastLoginTime
+		FROM
+			t_admin
+		WHERE
+			email = #{email}
+	</select>
+
+	<!-- Admin selectById(Integer id); -->
+	<select id="selectById" resultType="com.example.store.bean.Admin">
+		SELECT
+			id,
+			login_name loginName,
+			login_pwd loginPwd,
+			real_name realName,
+			mobile,
+			email,
+			image,
+			last_login_ip lastLoginIp,
+			last_login_time lastLoginTime
+		FROM
+			t_admin
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- void updatePwdByEmail(@Param("email") String email, @Param("pwd") String pwd); -->
+	<update id="updatePwdByEmail">
+		UPDATE t_admin SET login_pwd = #{pwd} WHERE email = #{email}
+	</update>
+
+	<!-- void updateAdminById(Admin admin); -->
+	<update id="updateAdminById">
+		UPDATE t_admin
+		<set>
+			<if test="loginPwd != null">login_pwd = #{loginPwd},</if>
+			<if test="realName != null">real_name = #{realName},</if>
+			<if test="mobile != null">mobile = #{mobile},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="image != null">image = #{image},</if>
+			<if test="lastLoginIp != null">last_login_ip = #{lastLoginIp},</if>
+			<if test="lastLoginTime != null">last_login_time = #{lastLoginTime}</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+</mapper>

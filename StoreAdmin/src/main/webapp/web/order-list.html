@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>StoreAdmin | OrderList</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+	<link rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="../plugins/bootstrap-table/bootstrap-table.min.css">
+	<link rel="stylesheet" href="../lte/css/AdminLTE.min.css">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="hold-transition bg-gray">
+
+<div class="content">
+
+	<div class="box box-primary">
+		<div class="box-header with-border">订单列表</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+
+			<!-- 搜索栏 -->
+			<form class="form-inline" method="post">
+				<div class="form-group">
+					<span>订单号：</span>
+					<input type="text" name="orderNo" class="form-control">
+				</div>
+				<div class="form-group">
+					<span>状态：</span>
+					<select class="form-control select2">
+						<option value="0">- 请选择 -</option>
+						<option value="1">待付款</option>
+						<option value="2">已付款</option>
+						<option value="3">未发货</option>
+						<option value="4">已发货</option>
+						<option value="5">交易成功</option>
+						<option value="6">交易关闭</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<span>下单日期：</span>
+					<div class="input-group">
+						<input type="text" name="beginDate" class="form-control datepicker" placeholder="起始日期">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					</div>
+					-
+					<div class="input-group">
+						<input type="text" name="endDate" class="form-control datepicker" placeholder="结束日期">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-default"><i class="fa fa-search"></i> 查询</button>
+					<button type="reset" class="btn btn-default"><i class="fa fa-repeat"></i> 重置</button>
+				</div>
+			</form>
+
+			<!-- 工具栏 -->
+			<div id="toolbar">
+				<button class="btn btn-default"><i class="fa fa-truck"></i> 发货</button>
+				<button class="btn btn-default"><i class="fa fa-gift"></i> 确认收货</button>
+			</div>
+
+			<!-- 表格数据 -->
+			<table id="table"></table>
+
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</div>
+
+<!-- REQUIRED JS SCRIPTS -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="../bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../lte/js/adminlte.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- Bootstrap Table -->
+<script src="../plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+	$(function () {
+
+		// 初始化下拉选控件
+		$(".select2").select2({
+			// 隐藏搜索框
+			minimumResultsForSearch: -1
+		});
+
+		// 初始化日期控件
+		$(".datepicker").datepicker({
+			autoclose: true,
+			format: "yyyy-mm-dd",
+			language: "zh-CN"
+		});
+
+		$("#table").bootstrapTable({
+			sidePagination: "server",
+			url: "/examples/bootstrap_table/data",
+			responseHandler: function(res) {return res},
+			queryParams: function(params) {return params},
+			toolbar: "#toolbar",
+			showRefresh: true,
+			pagination: true,
+			pageSize: 5,
+			idField: "id",
+			columns: [
+				{field: "ck", checkbox: true},
+				{field: "id", title: "订单号", sortable: true},
+				{field: "paymentAmount", title: "总金额", sortable: true},
+				{field: "status", title: "订单状态", formatter: statusFormatter},
+				{field: "createTime", title: "下单时间", sortable: true},
+				{field: "buyerNick", title: "买家昵称"},
+				{field: "operate", title: "操作", width: "120px", formatter: operateFormatter}
+			],
+			data: [
+				{
+					id: 10001,
+					paymentAmount: 81,
+					status: 1,
+					createTime: "2018-05-02 16:54:42",
+					buyerNick: "蛋蛋"
+				}
+			]
+		});
+
+		function statusFormatter(value) {
+			return ["-", "待付款", "已付款", "未发货", "已发货", "交易成功", "交易关闭"][value || 0];
+		}
+
+		function operateFormatter() {
+			return '<a class="btn btn-primary btn-xs" title="查看详细" href="order-detail.html"><i class="fa fa-search-plus"></i></a>';
+		}
+
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.store.mapper.NoteMapper"> <!--bean类是 mapper底下的类 AdminMapper-->
+    <!--sql语句-->
+    <select id="selectLastNote" resultType="String">
+              SELECT
+              note
+              FROM
+              t_note WHERE id = (SELECT  max(id) FROM t_note)
+
+    </select>
+
+    <insert id="insertNote" parameterType="com.example.store.bean.Note">
+        INSERT INTO t_note (note,time) VALUES (#{note},#{time})  <!-- #{}；预编译 防止sql注入 -->
+    </insert>
+
+</mapper>

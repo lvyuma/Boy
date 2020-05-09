@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.store.mapper.GoodsMapper">
+
+	<resultMap id="BaseResultMap" type="com.example.store.bean.Goods">
+		<id column="id" jdbcType="INTEGER" property="id"/>
+		<result column="salt_goods_num" jdbcType="INTEGER" property="saltGoodsNum"/>
+		<result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+		<result column="item_type" jdbcType="VARCHAR" property="itemType"/>
+		<result column="title" jdbcType="VARCHAR" property="title"/>
+		<result column="sell_point" jdbcType="VARCHAR" property="sellPoint"/>
+		<result column="price" jdbcType="BIGINT" property="price"/>
+		<result column="num" jdbcType="INTEGER" property="num"/>
+		<result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+		<result column="image" jdbcType="VARCHAR" property="image"/>
+		<result column="status" jdbcType="INTEGER" property="status"/>
+		<result column="priority" jdbcType="INTEGER" property="priority"/>
+		<result column="created_user" jdbcType="VARCHAR" property="createdUser"/>
+		<result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+		<result column="modified_user" jdbcType="VARCHAR" property="modifiedUser"/>
+		<result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, salt_goods_num,category_id, item_type, title, sell_point, price, num, barcode, image, status,
+		priority, created_user, created_time, modified_user, modified_time
+	</sql>
+
+	<!-- List<Goods> selectGoodsList(GoodsParam goodsParam); -->
+	<select id="selectGoodsList" resultType="com.example.store.bean.Goods">
+		SELECT
+			g.id,
+			g.category_id categoryId,
+			g.item_type itemType,
+			g.title,
+			g.sell_point sellPoint,
+			g.price,
+			g.num,
+			g.barcode,
+			g.image,
+			g.status,
+			g.priority,
+			g.created_user createdUser,
+			g.created_time createdTime,
+			g.modified_user modifiedUser,
+			g.modified_time modifiedTime,
+			c.name categoryName
+		FROM t_goods g
+		LEFT JOIN t_goods_category c ON c.id = g.category_id
+		<where>
+			<if test="categoryId != null">
+				g.category_id = #{categoryId}
+			</if>
+			<if test="title != null and title != ''">
+				AND g.title LIKE concat('%', #{title}, '%')
+			</if>
+			<if test="status != null and status != -1">
+				AND g.status = #{status}
+			</if>
+		</where>
+		ORDER BY g.created_time DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+
+
+
+
+	<!-- List<Goods> selectGoodsList(GoodsParam goodsParam);  商品热卖列表 -->
+	<select id="selectHotGoodsList" resultType="com.example.store.bean.Goods">
+		SELECT
+		g.id,
+		g.salt_goods_num,
+		g.category_id categoryId,
+		g.item_type itemType,
+		g.title,
+		g.sell_point sellPoint,
+		g.price,
+		g.num,
+		g.barcode,
+		g.image,
+		g.status,
+		g.priority,
+		g.created_user createdUser,
+		g.created_time createdTime,
+		g.modified_user modifiedUser,
+		g.modified_time modifiedTime,
+		c.name categoryName
+		FROM  t_hot_goods g
+		LEFT JOIN t_goods_category c ON c.id = g.category_id
+		<where>
+			<if test="categoryId != null">
+				g.category_id = #{categoryId}
+			</if>
+			<if test="title != null and title != ''">
+				AND g.title LIKE concat('%', #{title}, '%')
+			</if>
+			<if test="status != null and status != -1">
+				AND g.status = #{status}
+			</if>
+		</where>
+		ORDER BY salt_goods_num DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+
+	<!-- List<Goods> selectGoodsList(GoodsParam goodsParam);  商品热卖列表 -->
+	<select id="selectWelcomGoodsList" resultType="com.example.store.bean.Goods">
+		SELECT
+		g.id,
+		g.salt_goods_num,
+		g.category_id categoryId,
+		g.item_type itemType,
+		g.title,
+		g.sell_point sellPoint,
+		g.price,
+		g.num,
+		g.barcode,
+		g.image,
+		g.status,
+		g.priority,
+		g.created_user createdUser,
+		g.created_time createdTime,
+		g.modified_user modifiedUser,
+		g.modified_time modifiedTime,
+		c.name categoryName
+		FROM  t_hot_goods g
+		LEFT JOIN t_goods_category c ON c.id = g.category_id
+		ORDER BY salt_goods_num DESC
+		LIMIT 0,5
+	</select>
+
+
+
+
+	<!-- int selectGoodsCount(GoodsParam goodsParam); -->
+	<select id="selectGoodsCount" resultType="int">
+		SELECT count(*)
+		FROM t_goods g
+		<where>
+			<if test="categoryId != null">
+				g.category_id = #{categoryId}
+			</if>
+			<if test="title != null and title != ''">
+				AND g.title LIKE concat('%', #{title}, '%')
+			</if>
+			<if test="status != null and status != -1">
+				AND g.status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<!-- User selectGoodsById(Integer id); -->
+	<select id="selectGoodsById" parameterType="java.lang.Integer" resultType="com.example.store.bean.Goods">
+		SELECT
+			g.id,
+			g.category_id categoryId,
+			g.item_type itemType,
+			g.title,
+			g.sell_point sellPoint,
+			g.price,
+			g.num,
+			g.barcode,
+			g.image,
+			g.status,
+			g.priority,
+			g.created_user createdUser,
+			g.created_time createdTime,
+			g.modified_user modifiedUser,
+			g.modified_time modifiedTime,
+			c.name categoryName
+		FROM t_goods g
+		LEFT JOIN t_goods_category c ON c.id = g.category_id
+		where g.id = #{id,jdbcType=INTEGER}
+	</select>
+
+
+
+
+
+
+
+	<!-- void insertGoods(Goods goods); -->
+	<insert id="insertGoods" parameterType="com.example.store.bean.Goods">
+		INSERT INTO t_goods (
+			category_id, item_type,
+			title, sell_point, price,
+			num, barcode, image,
+			status, priority, created_user, created_time
+		) VALUES (
+		#{categoryId,jdbcType=INTEGER}, #{itemType,jdbcType=VARCHAR},
+			#{title,jdbcType=VARCHAR}, #{sellPoint,jdbcType=VARCHAR}, #{price,jdbcType=BIGINT},
+			#{num,jdbcType=INTEGER}, #{barcode,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR},
+			#{status,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, #{createdUser,jdbcType=VARCHAR},
+			#{createdTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<!-- void updateGoods(Goods goods); -->
+	<update id="updateGoods" parameterType="com.example.store.bean.Goods">
+		UPDATE t_goods SET
+			category_id = #{categoryId,jdbcType=INTEGER},
+			item_type = #{itemType,jdbcType=VARCHAR},
+			title = #{title,jdbcType=VARCHAR},
+			sell_point = #{sellPoint,jdbcType=VARCHAR},
+			price = #{price,jdbcType=BIGINT},
+			num = #{num,jdbcType=INTEGER},
+			barcode = #{barcode,jdbcType=VARCHAR},
+			image = #{image,jdbcType=VARCHAR},
+			status = #{status,jdbcType=INTEGER},
+			priority = #{priority,jdbcType=INTEGER},
+			modified_user = #{modifiedUser,jdbcType=VARCHAR},
+			modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- void deleteGoods(Integer id); -->
+	<delete id="deleteGoods" parameterType="java.lang.Integer">
+		delete from t_goods
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!-- void updateStatusById(@Param("id") Integer id, @Param("status") Integer status); -->
+	<update id="updateStatusById">
+		UPDATE t_goods SET status = #{status,jdbcType=INTEGER} where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

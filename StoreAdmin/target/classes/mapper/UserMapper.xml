@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.store.mapper.UserMapper">
+
+	<!-- List<User> selectUserList(UserParam userParam); -->
+	<select id="selectUserList" resultType="com.example.store.bean.User">
+		SELECT
+			id,
+			username,
+			password,
+			real_name realName,
+			phone,
+			email,
+			image,
+			gender,
+			status,
+			created_user createdUser,
+			created_time createdTime,
+			modified_user modifiedUser,
+			modified_time modifiedTime
+		FROM t_user
+		<include refid="whereSql"/>
+		ORDER BY created_time DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<sql id="whereSql">
+		<where>
+			<if test="username != null and username != ''">
+				username = #{username}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND phone = #{phone}
+			</if>
+			<if test="status != null and status != -1">
+				AND status = #{status}
+			</if>
+		</where>
+	</sql>
+
+	<!-- int selectUserCount(UserParam userParam); -->
+	<select id="selectUserCount" resultType="int">
+		SELECT count(*) FROM t_user
+		<include refid="whereSql"/>
+	</select>
+
+	<!-- User selectUserById(Integer id); -->
+	<select id="selectUserById" resultType="com.example.store.bean.User">
+		SELECT
+			id,
+			username,
+			password,
+			real_name realName,
+			phone,
+			email,
+			image,
+			gender,
+			status,
+			created_user createdUser,
+			created_time createdTime,
+			modified_user modifiedUser,
+			modified_time modifiedTime
+		FROM
+			t_user
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- void insertUser(User user); -->
+	<insert id="insertUser" parameterType="com.example.store.bean.User">
+		INSERT INTO t_user (
+			username,
+			password,
+			real_name,
+			phone,
+			email,
+			image,
+			gender,
+			status,
+			created_user,
+			created_time
+		) VALUES (
+			#{username},
+			#{password},
+			#{realName},
+			#{phone},
+			#{email},
+			#{image},
+			#{gender},
+			#{status},
+			#{createdUser},
+			#{createdTime}
+		)
+	</insert>
+
+	<!-- void updateUser(User user); -->
+	<update id="updateUser" parameterType="com.example.store.bean.User">
+		UPDATE t_user SET
+			username = #{username},
+			password = #{password},
+			real_name = #{realName},
+			phone = #{phone},
+			email = #{email},
+			image = #{image},
+			gender = #{gender},
+			status = #{status},
+			modified_user = #{modifiedUser},
+			modified_time = #{modifiedTime}
+		WHERE id = #{id}
+	</update>
+
+	<!-- void updateUserStatusById(@Param("id") Integer id, @Param("status") Integer status); -->
+	<update id="updateUserStatusById">
+		UPDATE t_user SET status = #{status} WHERE id = #{id}
+	</update>
+
+</mapper>

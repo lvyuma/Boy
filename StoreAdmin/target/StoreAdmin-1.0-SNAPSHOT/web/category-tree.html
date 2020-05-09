@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>StoreAdmin | CategoryTree</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../plugins/zTree_v3/css/metroStyle/metroStyle.css">
+	<link rel="stylesheet" href="../lte/css/AdminLTE.min.css">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="hold-transition">
+
+<div class="content">
+	<div class="ztree" id="tree"></div>
+</div>
+
+<!-- REQUIRED JS SCRIPTS -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../lte/js/adminlte.min.js"></script>
+<script src="../plugins/zTree_v3/js/jquery.ztree.all.min.js"></script>
+<script>
+	var zTreeObj = null;
+
+	$(function () {
+
+		// zTree 设置参数
+		var setting = {
+			view: {
+				selectedMulti: false
+			},
+			data: {
+				simpleData: {
+					enable: true,
+					idKey: "id",
+					pIdKey: "parentId",
+					rootPId: 0
+				}
+			}
+		};
+
+		// 获取商品分类数据
+		$.getJSON("category-list.json", function (data) {
+			// 初始化树结构
+			zTreeObj = $.fn.zTree.init($("#tree"), setting, data);
+			// 默认展开2级节点
+			var nodes = zTreeObj.getNodesByParam("level", 1);
+			for (var i = 0; i < nodes.length; i++) {
+				zTreeObj.expandNode(nodes[i], true, false, false);
+			}
+		});
+
+	});
+</script>
+
+</body>
+</html>

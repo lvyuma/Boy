@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.store.mapper.GoodsCategoryMapper">
+
+	<resultMap id="BaseResultMap" type="com.example.store.bean.GoodsCategory">
+		<id column="id" jdbcType="INTEGER" property="id"/>
+		<result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="status" jdbcType="INTEGER" property="status"/>
+		<result column="sort_order" jdbcType="INTEGER" property="sortOrder"/>
+		<result column="is_parent" jdbcType="INTEGER" property="isParent"/>
+		<result column="created_user" jdbcType="VARCHAR" property="createdUser"/>
+		<result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+		<result column="modified_user" jdbcType="VARCHAR" property="modifiedUser"/>
+		<result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+	    id, parent_id, name, status, sort_order, is_parent, created_user, created_time, modified_user, modified_time
+	</sql>
+
+	<!-- List<GoodsCategory> selectCategoryList(); -->
+	<select id="selectCategoryList" resultType="com.example.store.bean.GoodsCategory">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_goods_category
+		ORDER BY created_time DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<!-- int selectCategoryCount(CategoryParam categoryParam); -->
+	<select id="selectCategoryCount" resultType="int">
+		SELECT count(*)
+		FROM t_goods_category
+	</select>
+
+	<!-- List<GoodsCategory> selectCategoryListByParentId(Integer parentId); -->
+	<select id="selectCategoryListByParentId" resultType="com.example.store.bean.GoodsCategory">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_goods_category
+		WHERE
+		<choose>
+			<when test="parentId == null">
+				parent_id = 0
+			</when>
+			<otherwise>
+				parent_id = #{parentId}
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- int insertCategory(GoodsCategory category); -->
+	<insert id="insertCategory" parameterType="com.example.store.bean.GoodsCategory">
+		insert into t_goods_category (
+			parent_id, name,
+			status, sort_order, is_parent,
+			created_user, created_time, modified_user,
+			modified_time)
+		values (
+			#{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+			#{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=INTEGER},
+			#{createdUser,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedUser,jdbcType=VARCHAR},
+			#{modifiedTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<!-- GoodsCategory selectCategoryById(Integer id); -->
+	<select id="selectCategoryById" resultType="com.example.store.bean.GoodsCategory">
+		SELECT
+			c.id,
+			c.parent_id parentId,
+			c.name,
+			c.status,
+			c.sort_order sortOrder,
+			c.is_parent isParent,
+			p.name parentName
+		FROM t_goods_category c
+		LEFT JOIN t_goods_category p ON c.parent_id = p.id
+		WHERE c.id = #{id}
+	</select>
+
+	<!-- void updateCategory(GoodsCategory category); -->
+	<update id="updateCategory" parameterType="com.example.store.bean.GoodsCategory">
+		UPDATE t_goods_category SET
+			parent_id = #{parentId},
+			name = #{name},
+			status = #{status},
+			sort_order = #{sortOrder},
+			is_parent = #{isParent},
+			created_user = #{createdUser},
+			created_time = #{createdTime},
+			modified_user = #{modifiedUser},
+			modified_time = #{modifiedTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<!-- void deleteCategory(Integer id); -->
+	<delete id="deleteCategory" parameterType="int">
+		DELETE FROM t_goods_category WHERE id = #{id}
+	</delete>
+
+</mapper>

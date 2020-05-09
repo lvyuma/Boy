@@ -1,0 +1,13 @@
+[
+  {"id": 1, "parentId": 0, "name": "图书、音像、电子书刊", "status": 1, "sortOrder": 1, "isParent": 1},
+  {"id": 2, "parentId": 1, "name": "电子书刊", "status": 1, "sortOrder": 1, "isParent": 1},
+  {"id": 3, "parentId": 2, "name": "电子书", "status": 1, "sortOrder": 1, "isParent": 0},
+  {"id": 4, "parentId": 2, "name": "网络原创", "status": 1, "sortOrder": 2, "isParent": 0},
+  {"id": 5, "parentId": 1, "name": "音像", "status": 1, "sortOrder": 2, "isParent": 1},
+  {"id": 6, "parentId": 5, "name": "音乐", "status": 1, "sortOrder": 1, "isParent": 0},
+  {"id": 7, "parentId": 5, "name": "影视", "status": 1, "sortOrder": 2, "isParent": 0},
+  {"id": 8, "parentId": 0, "name": "电脑、办公", "status": 1, "sortOrder": 2, "isParent": 1},
+  {"id": 9, "parentId": 8, "name": "电脑整机", "status": 1, "sortOrder": 1, "isParent": 1},
+  {"id": 10, "parentId": 9, "name": "笔记本", "status": 1, "sortOrder": 1, "isParent": 0},
+  {"id": 11, "parentId": 9, "name": "平板电脑", "status": 1, "sortOrder": 2, "isParent": 0}
+]

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>StoreAdmin | OrderDetail</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../plugins/bootstrap-table/bootstrap-table.min.css">
+	<link rel="stylesheet" href="../lte/css/AdminLTE.min.css">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="hold-transition bg-gray">
+
+<div class="content">
+
+	<div class="box box-primary">
+		<div class="box-header">订单详细
+			<div class="box-tools pull-right">
+				<a href="order-list.html" class="btn btn-box-tool">
+					<i class="fa fa-fw fa-arrow-left"></i>返回订单列表
+				</a>
+			</div>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+
+			<form class="form-horizontal" style="margin-bottom:10px">
+
+				<h4 class="page-header">订单信息</h4>
+				<table class="table table-bordered">
+					<tr>
+						<td class="active text-right" width="15%">订单号:</td>
+						<td width="35%">10001</td>
+						<td class="active text-right" width="15%">订单状态:</td>
+						<td width="35%">待付款</td>
+					</tr>
+					<tr>
+						<td class="active text-right">支付方式:</td>
+						<td>在线支付</td>
+						<td class="active text-right">订单金额:</td>
+						<td>&yen; 81.00</td>
+					</tr>
+					<tr>
+						<td class="active text-right">订单运费:</td>
+						<td>&yen; 0.00</td>
+						<td class="active text-right">下单时间:</td>
+						<td>2018-05-02 16:54:42</td>
+					</tr>
+					<tr>
+						<td class="active text-right">付款时间:</td>
+						<td>-</td>
+						<td class="active text-right">发货时间:</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td class="active text-right" width="15%">交易完成时间:</td>
+						<td>-</td>
+						<td class="active text-right" width="15%">交易关闭时间:</td>
+						<td>-</td>
+					</tr>
+				</table>
+
+				<h4 class="page-header">物流信息</h4>
+				<table class="table table-bordered">
+					<tr>
+						<td class="active text-right" width="15%">物流名称:</td>
+						<td width="35%">-</td>
+						<td class="active text-right" width="15%">物流单号:</td>
+						<td width="35%">-</td>
+					</tr>
+				</table>
+
+				<h4 class="page-header">买家信息</h4>
+				<table class="table table-bordered">
+					<tr>
+						<td class="active text-right" width="15%">买家昵称:</td>
+						<td width="35%">蛋蛋</td>
+						<td class="active text-right" width="15%">是否评价:</td>
+						<td width="35%">否</td>
+					</tr>
+					<tr>
+						<td class="active text-right" width="15%">买家留言:</td>
+						<td colspan="3">老板，发货时要检查清楚哟！</td>
+					</tr>
+				</table>
+
+				<h4 class="page-header">订单商品信息</h4>
+
+				<!-- 表格数据 -->
+				<table id="table"></table>
+
+			</form>
+
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</div>
+
+<!-- REQUIRED JS SCRIPTS -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../lte/js/adminlte.min.js"></script>
+<!-- Bootstrap Table -->
+<script src="../plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+	$(function () {
+
+		$("#table").bootstrapTable({
+			//sidePagination: "server",
+			//url: "/examples/bootstrap_table/data",
+			//responseHandler: function(res) {return res},
+			//queryParams: function(params) {return params},
+			pagination: true,
+			pageSize: 5,
+			idField: "id",
+			columns: [
+				{field: "ck", checkbox: true},
+				{field: "title", title: "商品标题"},
+				{field: "image", title: "图片", formatter: imageFormatter},
+				{field: "price", title: "价格", sortable: true},
+				{field: "num", title: "商品数量", sortable: true},
+				{field: "totalAmount", title: "总金额", sortable: true}
+			],
+			data: [
+				{
+					id: 1,
+					title: "广博(GuangBo)10本装40张A5牛皮纸记事本子日记本办公软抄本GBR0731",
+					image: "../lte/img/default-50x50.gif",
+					price: "￥ 23",
+					num: 1,
+					totalAmount: "￥ 23"
+				}, {
+					id: 2,
+					title: "得力（deli）1548A商务办公桌面计算器 太阳能双电源",
+					image: "../lte/img/default-50x50.gif",
+					price: "￥ 58",
+					num: 1,
+					totalAmount: "￥ 58"
+				}
+			]
+		});
+
+		function imageFormatter(value) {
+			return '<img src="' + value + '">';
+		}
+
+	});
+</script>
+
+</body>
+</html>

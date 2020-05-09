@@ -1,0 +1,10 @@
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:04:53 +0800] "GET /lte/css/AdminLTE.min.css HTTP/1.1" 200 32768 http-bio-8080-exec-10 45
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:04:53 +0800] "GET /bower_components/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 200 32768 http-bio-8080-exec-8 10
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:04:53 +0800] "GET /plugins/iCheck/minimal/blue.css HTTP/1.1" 200 1626 http-bio-8080-exec-9 15
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:04:54 +0800] "GET /admin/category/showCategoryTree.do HTTP/1.1" 200 2516 http-bio-8080-exec-1 203
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:04:55 +0800] "GET /admin/category/getCategoryListByParentId.do HTTP/1.1" 200 3932 http-bio-8080-exec-1 44
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:34:26 +0800] "GET /admin/showIndex.do HTTP/1.1" 200 7387 http-bio-8080-exec-6 5
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:34:26 +0800] "GET /admin/showWelcome.do HTTP/1.1" 200 5656 http-bio-8080-exec-6 9
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:34:26 +0800] "GET /admin/goods/showWelcomGoodsList.do HTTP/1.1" 200 5123 http-bio-8080-exec-6 4
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:34:27 +0800] "POST /admin/readLastNote.do HTTP/1.1" 200 61 http-bio-8080-exec-6 91
+0:0:0:0:0:0:0:1 - - [20/Apr/2020:11:34:27 +0800] "GET /admin/goods/getWelcomGoodsPageObject.do?order=asc&offset=0&limit=5 HTTP/1.1" 200 2296 http-bio-8080-exec-4 135
