@@ -3,14 +3,13 @@ package com.example.store.bean;
 public class Dog {
     //t1 1
     //master 1
-    //mast2
-
-    //t2
 
     //t2
     //t3
 
     //master t4
+
+    //t1  t4
     private String name;
     private int age;
 
