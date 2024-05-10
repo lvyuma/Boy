@@ -1,7 +1,6 @@
 package com.example.store.bean;
 
 public class Dog {
-    //1
     private String name;
     private int age;
 
