@@ -36,7 +36,7 @@
 
 	$(function () {
 
-		// zTree 设置参数
+		// zTree 设置参数121
 		var setting = {
 			view: {
 				selectedMulti: false,
