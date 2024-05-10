@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 管理员实体类20240510
+ * 管理员实体类20240511
  */
 public class Admin implements Serializable {
 
