@@ -4,6 +4,8 @@ public class Dog {
     //t1 1
     //master 1
     //mast2
+
+    //t2
     private String name;
     private int age;
 
