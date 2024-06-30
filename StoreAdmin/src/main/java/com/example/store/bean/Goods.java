@@ -10,6 +10,7 @@ import java.util.Date;
 //goodst1
 //goodst1
 //goods
+//第一次提交
 public class Goods implements Serializable {
 
 	private static final long serialVersionUID = -5038484553923425976L;
