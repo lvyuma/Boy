@@ -7,6 +7,7 @@ import java.util.Date;
  * 商品分类实体类
  */
 //master
+	//第五次提交
 public class GoodsCategory implements Serializable {
 
 	private static final long serialVersionUID = 7291330842760622197L;
