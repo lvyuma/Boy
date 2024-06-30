@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * 管理员实体类20240511
  */
-//admin
+//admint1
 public class Admin implements Serializable {
 
 	private static final long serialVersionUID = 7786299649043214124L;
