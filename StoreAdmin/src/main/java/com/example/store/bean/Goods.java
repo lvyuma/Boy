@@ -6,6 +6,7 @@ import java.util.Date;
 /**
  * 商品实体类
  */
+//goods
 public class Goods implements Serializable {
 
 	private static final long serialVersionUID = -5038484553923425976L;
