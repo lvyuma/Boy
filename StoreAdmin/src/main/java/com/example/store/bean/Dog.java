@@ -1,6 +1,7 @@
 package com.example.store.bean;
 
 public class Dog {
+    //master分支
     private String name;
     private int age;
 
