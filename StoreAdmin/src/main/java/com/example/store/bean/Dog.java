@@ -5,9 +5,15 @@ public class Dog {
     //master 1
 
     //t2
-    //t3
+    //t3  chongtu
+
+    //master t4  master12345
 
     //t1  t4
+
+    //t1 t5 1111
+
+    //主分支已经有
 
     //t1 t5 1111  abc
     //t1 t5
@@ -19,11 +25,7 @@ public class Dog {
     private String name;
     private int age;
 
-    final  int a = 0;
-
-
     public String getName() {
-
         return name;
     }
 
