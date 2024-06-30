@@ -10,10 +10,16 @@ public class Dog {
     //t1  t4
 
     //t1 t5
+
+    //20240630
     private String name;
     private int age;
 
+    final  int a = 0;
+
+
     public String getName() {
+
         return name;
     }
 
