@@ -8,6 +8,7 @@ import java.util.Date;
  */
 //t2
 	//t4
+	//t6
 public class Goods  {
 
 
