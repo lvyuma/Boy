@@ -7,6 +7,7 @@ import java.util.Date;
  * 商品实体类
  */
 //t2
+	//t4
 public class Goods  {
 
 
