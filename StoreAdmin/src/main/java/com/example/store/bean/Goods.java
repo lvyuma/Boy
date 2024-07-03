@@ -6,8 +6,9 @@ import java.util.Date;
 /**
  * 商品实体类
  */
-
+//t2
 public class Goods  {
+
 
 	private static final long serialVersionUID = -5038484553923425976L;
 
