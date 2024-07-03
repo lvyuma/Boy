@@ -9,7 +9,7 @@ import java.util.Date;
 //t2
 	//t4
 	//t6
-public class Goods  {
+public class Goods implements Serializable {
 
 
 	private static final long serialVersionUID = -5038484553923425976L;
