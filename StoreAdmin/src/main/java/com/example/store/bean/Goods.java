@@ -18,6 +18,7 @@ import java.util.Date;
 //第四次提交
 //第六次提交
 //第七次提交
+//t12024/7/4
 public class Goods implements Serializable {
 
 	private static final long serialVersionUID = -5038484553923425976L;
