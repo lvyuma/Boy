@@ -9,6 +9,7 @@ import java.util.Date;
 //t2
 	//t4
 	//t6
+//master2024/7/4
 public class Goods implements Serializable {
 
 
